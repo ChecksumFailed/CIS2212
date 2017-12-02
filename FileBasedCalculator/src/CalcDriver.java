@@ -1,10 +1,23 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.io.IOException;
+
 /**
- * Ben Scherer CIS 2212 Nov 3, 2017 CalcDriver Description
+ * Ben Scherer
+ *  CIS 2212
+ *   Nov 8, 2017
+ *    CalcDriver
+ *    Main program.  Manages User input/Output and calculator objects.
  */
 public class CalcDriver {
 
+	// Get user input and return double
+	
 	public static void main(String[] args) {
 		int userInput;
+
 		MemoryCalc calcObj = new MemoryCalc();
 
 		do {
@@ -13,17 +26,19 @@ public class CalcDriver {
 			switch (userInput) {
 			case 1: { // Add two numbers together
 				try {
+
 					calcObj.add(calcObj.getOperand("What is the second number?"));
-				} catch (ArithmeticException ex) {
-					System.out.println("Error: " + ex.toString());
+
+				} catch (ArithmeticException | InputMismatchException ex) {
+					System.out.println("Error: " + ex.getMessage());
 				}
 				break;
 			}
 			case 2: { // Subtract two numbers
 				try {
 					calcObj.subtract(calcObj.getOperand("What is the second number?"));
-				} catch (ArithmeticException ex) {
-					System.out.println("Error: " + ex.toString());
+				} catch (ArithmeticException | InputMismatchException ex) {
+					System.out.println("Error: " + ex.getMessage());
 				}
 				break;
 
@@ -31,29 +46,35 @@ public class CalcDriver {
 			case 3: { // multiply two numbers
 				try {
 					calcObj.multiply(calcObj.getOperand("What is the second number?"));
-				} catch (ArithmeticException ex) {
-					System.out.println("Error: " + ex.toString());
+				} catch (ArithmeticException | InputMismatchException ex) {
+					System.out.println("Error: " + ex.getMessage());
 				}
 				break;
 			}
 			case 4: { // divide two numbers
 				try {
 					calcObj.divide(calcObj.getOperand("What is the second number?"));
-				} catch (ArithmeticException ex) {
-					System.out.println("Error: " + ex.toString());
+				} catch (ArithmeticException | InputMismatchException ex) {
+					System.out.println("Error: " + ex.getMessage());
 				}
 				break;
 			}
-			case 5: {// generate random array
+			case 5: {// Clear current value
 				calcObj.clear();
 				break;
 			}
-			case 6: {
-				
+			case 6: { // Get file and calculator output
+				try {
+					
+					calcObj.arrToFile();
+					
+				} catch (IOException ex) {
+					System.out.println("Error: " + ex.getMessage());
+				}
 			}
 
 			}
-		} while (userInput != 8);
+		} while (userInput != 7);
 
 		System.out.println("Goodbye!");
 
